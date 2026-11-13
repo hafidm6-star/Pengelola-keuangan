@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplikasi pengelola keuangan pribadi untuk mencatat pemasukan dan pengeluaran.">
+    <title>Finance Tracker | Pengelola Keuangan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">₣</div>
+                <h2>FinTrack</h2>
+            </div>
+
+            <nav>
+                <a href="#dashboard" class="nav-link active">
+                    <span>▦</span> Dashboard
+                </a>
+                <a href="#transactions" class="nav-link">
+                    <span>↔</span> Transaksi
+                </a>
+                <a href="#statistics" class="nav-link">
+                    <span>▥</span> Statistik
+                </a>
+            </nav>
+            <div class="sidebar-bottom">
+                <p>PERSONAL FINANCE</p>
+                <small>Kelola keuangan lebih mudah.</small>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Selamat datang di pengelola keuanganmu!</p>
+                </div>
+                <div class="profile">👤</div>
+            </header>
+
+            <section id="dashboard">
+
+                <div class="summary-grid">
+
+                    <div class="summary-card balance-card">
+                        <p>Total Saldo</p>
+                        <h2 id="totalBalance">Rp 0</h2>
+                        <span>Saldo saat ini</span>
+                    </div>
+                    <div class="summary-card income-card">
+                        <p>Total Pemasukan</p>
+                        <h2 id="totalIncome">Rp 0</h2>
+                        <span>↑ Uang masuk</span>
+                    </div>
+
+                    <div class="summary-card expense-card">
+                        <p>Total Pengeluaran</p>
+                        <h2 id="totalExpense">Rp 0</h2>
+                        <span>↓ Uang keluar</span>
+                    </div>
+
+                </div>
+
+                <div class="content-grid">
+
+                    <section class="panel form-panel">
+                        <div class="panel-heading">
+                            <h3>Tambah Transaksi</h3>
+                        </div>
+
+                        <form id="transactionForm">
+
+                            <label for="description">Nama Transaksi</label>
+                            <input
+                                type="text"
+                                id="description"
+                              placeholder="Contoh: Gaji bulanan"
+                                maxlength="60"
+                                required
+                            >
+
+                            <label for="amount">Jumlah (Rupiah)</label>
+                            <input
+                                type="number"
+                                id="amount"
+                                placeholder="Contoh: 500000"
+                                min="1"
+                                step="1"
+                                required
+                            >
+
+                            <label for="type">Jenis Transaksi</label>
+                            <select id="type" required>
+                                <option value="income">Pemasukan</option>
+                                <option value="expense">Pengeluaran</option>
+                            </select>
+
+                            <label for="category">Kategori</label>
+                            <select id="category" required>
+                              <option value="Gaji">Gaji</option>
+                                <option value="Bisnis">Bisnis</option>
+                                <option value="Makanan">Makanan</option>
+                                <option value="Transportasi">Transportasi</option>
+                                <option value="Belanja">Belanja</option>
+                                <option value="Pendidikan">Pendidikan</option>
+                                <option value="Hiburan">Hiburan</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+
+                            <label for="date">Tanggal</label>
+                            <input type="date" id="date" required>
+<button type="submit" class="primary-button">
+                                + Simpan Transaksi
+                            </button>
+
+                        </form>
+                    </section>
+
+                    <section class="panel chart-panel" id="statistics">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Statistik Keuangan</h3>
+                                <p>Ringkasan pemasukan dan pengeluaran</p>
+                            </div>
+                        </div>
+
+<th>Transaksi</th>
+                                <th>Kategori</th>
+                                <th>Tanggal</th>
+                                <th>Jumlah</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionList">
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    Belum ada transaksi.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+<footer>
+                <p>© 2026 FinTrack. Personal Finance Tracker.</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
