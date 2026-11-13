@@ -1,142 +1,228 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Aplikasi pengelola keuangan pribadi untuk mencatat pemasukan dan pengeluaran.">
-    <title>Finance Tracker | Pengelola Keuangan</title>
+    <meta name="theme-color" content="#17233d">
+    <meta name="description" content="FinTrack 2.0 - Aplikasi pengelola keuangan pribadi.">
+    <title>FinTrack 2.0 | Finance Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="app-container">
+<div class="app-container">
 
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-icon">₣</div>
-                <h2>FinTrack</h2>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">F</div>
+            <h2>FinTrack<span>.</span></h2>
+        </div>
+
+        <p class="menu-label">MENU UTAMA</p>
+
+        <nav>
+            <a href="#dashboard" class="nav-link active">
+                <span>▦</span> Dashboard
+            </a>
+            <a href="#transactions" class="nav-link">
+                <span>↔</span> Transaksi
+            </a>
+            <a href="#statistics" class="nav-link">
+                <span>▥</span> Statistik
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-icon">💰</div>
+            <h4>Atur Keuanganmu</h4>
+            <p>Kelola pemasukan dan pengeluaran dengan mudah.</p>
+            <small>FINTRACK VERSION 2.0</small>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">PERSONAL FINANCE</p>
+                <h1>Dashboard</h1>
+                <p class="subtitle">Pantau kondisi keuanganmu hari ini.</p>
             </div>
 
-            <nav>
-                <a href="#dashboard" class="nav-link active">
-                    <span>▦</span> Dashboard
-                </a>
-                <a href="#transactions" class="nav-link">
-                    <span>↔</span> Transaksi
-                </a>
-                <a href="#statistics" class="nav-link">
-                    <span>▥</span> Statistik
-                </a>
-            </nav>
-            <div class="sidebar-bottom">
-                <p>PERSONAL FINANCE</p>
-                <small>Kelola keuangan lebih mudah.</small>
+            <button id="themeToggle" class="theme-button" type="button"
+                aria-label="Ganti tema">🌙</button>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard">
+
+            <div class="summary-grid">
+
+                <article class="summary-card balance-card">
+                    <div class="card-top">
+                        <span>Total Saldo</span>
+                        <span class="card-icon">💳</span>
+                    </div>
+                    <h2 id="totalBalance">Rp0</h2>
+                    <p>Saldo keseluruhan</p>
+                </article>
+
+                <article class="summary-card">
+                    <div class="card-top">
+                        <span>Total Pemasukan</span>
+                        <span class="card-icon green">↗</span>
+                    </div>
+                    <h2 id="totalIncome" class="green-text">Rp0</h2>
+                    <p>Seluruh uang masuk</p>
+                </article>
+
+                <article class="summary-card">
+                    <div class="card-top">
+                        <span>Total Pengeluaran</span>
+                        <span class="card-icon red">↘</span>
+                    </div>
+                    <h2 id="totalExpense" class="red-text">Rp0</h2>
+                    <p>Seluruh uang keluar</p>
+                </article>
+
             </div>
-        </aside>
 
-        <main class="main-content">
-
-            <header class="topbar">
-                <div>
-                    <h1>Dashboard</h1>
-                    <p>Selamat datang di pengelola keuanganmu!</p>
-                </div>
-                <div class="profile">👤</div>
-            </header>
-
-            <section id="dashboard">
-
-                <div class="summary-grid">
-
-                    <div class="summary-card balance-card">
-                        <p>Total Saldo</p>
-                        <h2 id="totalBalance">Rp 0</h2>
-                        <span>Saldo saat ini</span>
-                    </div>
-                    <div class="summary-card income-card">
-                        <p>Total Pemasukan</p>
-                        <h2 id="totalIncome">Rp 0</h2>
-                        <span>↑ Uang masuk</span>
+            <!-- CHART -->
+            <section class="panel chart-panel" id="statistics">
+                <div class="panel-heading chart-heading">
+                    <div>
+                        <h3>Statistik Keuangan</h3>
+                        <p>Perbandingan pemasukan dan pengeluaran.</p>
                     </div>
 
-                    <div class="summary-card expense-card">
-                        <p>Total Pengeluaran</p>
-                        <h2 id="totalExpense">Rp 0</h2>
-                        <span>↓ Uang keluar</span>
-                    </div>
-
+                    <input type="month" id="chartMonth" aria-label="Bulan grafik">
                 </div>
 
-                <div class="content-grid">
+                <div class="chart-container">
+                    <canvas id="financeChart"></canvas>
+                </div>
 
-                    <section class="panel form-panel">
-                        <div class="panel-heading">
-                            <h3>Tambah Transaksi</h3>
+                <div class="chart-legend">
+                    <span><i class="dot income-dot"></i> Pemasukan</span>
+                    <span><i class="dot expense-dot"></i> Pengeluaran</span>
+                </div>
+            </section>
+
+            <!-- TRANSACTION FORM -->
+            <section class="panel form-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3 id="formTitle">Tambah Transaksi</h3>
+                        <p>Catat pemasukan atau pengeluaran baru.</p>
+                    </div>
+                    <span class="form-icon">＋</span>
+                </div>
+
+                <form id="transactionForm">
+
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+                            <label for="description">Nama Transaksi</label>
+                            <input type="text" id="description"
+                                placeholder="Contoh: Gaji bulanan"
+                                maxlength="60" required>
                         </div>
 
-                        <form id="transactionForm">
-
-                            <label for="description">Nama Transaksi</label>
-                            <input
-                                type="text"
-                                id="description"
-                              placeholder="Contoh: Gaji bulanan"
-                                maxlength="60"
-                                required
-                            >
-
+                        <div class="form-group">
                             <label for="amount">Jumlah (Rupiah)</label>
-                            <input
-                                type="number"
-                                id="amount"
-                                placeholder="Contoh: 500000"
-                                min="1"
-                                step="1"
-                                required
-                            >
+                            <input type="number" id="amount"
+                                placeholder="500000" min="1"
+                                step="1" required>
+                        </div>
 
+                        <div class="form-group">
                             <label for="type">Jenis Transaksi</label>
-                            <select id="type" required>
+                            <select id="type">
                                 <option value="income">Pemasukan</option>
                                 <option value="expense">Pengeluaran</option>
                             </select>
+                        </div>
 
+                        <div class="form-group">
                             <label for="category">Kategori</label>
-                            <select id="category" required>
-                              <option value="Gaji">Gaji</option>
+                            <select id="category">
+                                <option value="Gaji">Gaji</option>
                                 <option value="Bisnis">Bisnis</option>
                                 <option value="Makanan">Makanan</option>
                                 <option value="Transportasi">Transportasi</option>
                                 <option value="Belanja">Belanja</option>
                                 <option value="Pendidikan">Pendidikan</option>
                                 <option value="Hiburan">Hiburan</option>
+                                <option value="Tagihan">Tagihan</option>
+                                <option value="Tabungan">Tabungan</option>
                                 <option value="Lainnya">Lainnya</option>
                             </select>
-
-                            <label for="date">Tanggal</label>
-                            <input type="date" id="date" required>
-<button type="submit" class="primary-button">
-                                + Simpan Transaksi
-                            </button>
-
-                        </form>
-                    </section>
-
-                    <section class="panel chart-panel" id="statistics">
-                        <div class="panel-heading">
-                            <div>
-                                <h3>Statistik Keuangan</h3>
-                                <p>Ringkasan pemasukan dan pengeluaran</p>
-                            </div>
                         </div>
 
-<th>Transaksi</th>
-                                <th>Kategori</th>
-                                <th>Tanggal</th>
-                                <th>Jumlah</th>
-                                <th>Aksi</th>
+                        <div class="form-group">
+                            <label for="date">Tanggal</label>
+                            <input type="date" id="date" required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button" id="submitButton">
+                            + Simpan Transaksi
+                        </button>
+                        <button type="button" class="cancel-button hidden"
+                            id="cancelEdit">Batal Edit</button>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- TRANSACTION HISTORY -->
+            <section class="panel transactions-panel" id="transactions">
+
+                <div class="panel-heading transaction-heading">
+                    <div>
+                        <h3>Riwayat Transaksi</h3>
+                        <p>Kelola seluruh aktivitas keuanganmu.</p>
+                    </div>
+
+                    <button id="exportButton" class="export-button" type="button">
+                        ↓ Export CSV
+                    </button>
+                </div>
+
+                <div class="filter-container">
+
+                    <input type="search" id="searchInput"
+                        placeholder="⌕ Cari transaksi...">
+
+                    <input type="month" id="filterMonth"
+                        aria-label="Filter berdasarkan bulan">
+
+                    <select id="filterType" aria-label="Filter jenis transaksi">
+                        <option value="all">Semua Transaksi</option>
+                        <option value="income">Pemasukan</option>
+                        <option value="expense">Pengeluaran</option>
+                    </select>
+
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>TRANSAKSI</th>
+                                <th>KATEGORI</th>
+                                <th>TANGGAL</th>
+                                <th>JUMLAH</th>
+                                <th>AKSI</th>
                             </tr>
                         </thead>
+
                         <tbody id="transactionList">
                             <tr>
                                 <td colspan="5" class="empty-state">
@@ -147,15 +233,22 @@
                     </table>
                 </div>
 
+                <div class="table-footer">
+                    <span id="transactionCount">0 transaksi</span>
+                    <button id="resetFilters" type="button">Reset Filter</button>
+                </div>
+
             </section>
-<footer>
-                <p>© 2026 FinTrack. Personal Finance Tracker.</p>
-            </footer>
 
-        </main>
-    </div>
+        </section>
 
-    <script src="script.js"></script>
+        <footer>
+            <p>© 2026 FinTrack 2.0. Dibuat untuk pengelolaan keuangan pribadi.</p>
+        </footer>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
-
